@@ -1,5 +1,6 @@
+<%- include("partials/header") -%>
     <main>
-        <div class="greet">Hi, <b>User</b></div>
+        <div class="greet">Hi, <b> <%= user %> </b> <br> Your points are <%= points %> </div>
         <div class="news">
             <h2>Latest In IPL</h2>
             <div class="articles">
@@ -11,3 +12,4 @@
             </div>
         </div>
     </main>
+    <%- include("partials/footer") -%>

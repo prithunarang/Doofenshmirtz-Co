@@ -76,12 +76,12 @@ app.get("/login", function(req, res){
 })
 
 app.get("/register", function(req, res){
-    res.render("register")
+    res.render("sign-up")
 })
 
 app.get("/", function(req, res){   
     if(req.isAuthenticated()){
-        res.render("home", {user: req.user.username})
+        res.render("home", {user: req.user.username, points: req.user.points})
     } else {
         res.render("index")
     }
@@ -95,7 +95,7 @@ app.get("/leaderboard", function(req, res){
             if(err){
                 console.log(err)
             } else {
-                res.render("leaderboard", {user: req.user.username, users: foundUsers})
+                res.render("topper", {user: req.user.username, users: foundUsers})
             }
         })
     } else {
@@ -105,7 +105,7 @@ app.get("/leaderboard", function(req, res){
 
 app.get("/questions", function(req, res){
     if(req.isAuthenticated()){
-        Question.find({}, function(err, foundQuestions){
+        Question.find({}).then( function(err, foundQuestions){
             if(err){
                 console.log(err)
             } else {

@@ -1,0 +1,15 @@
+<%- include("partials/header"); -%>
+
+<center>
+    <h1>Leader board</h1>
+</center>
+
+<div class="leaderboard">
+    <% for(var i=0; i<users.length; i++) { %>
+    <div class="user">
+        <div class="username"><%= users[i].username %></div>
+        <div class="points"><%= users[i].points %></div>
+    </div>
+    <% } %>
+
+    <%- include("partials/footer") -%>
