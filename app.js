@@ -122,20 +122,59 @@ app.get("/create", function(req, res){
             res.render("create_poll")
         }else{  
             res.redirect("/login")
-            alert
+           
         }
     }else{
         res.redirect("/login")
     }
 })
 
-    
+app.post("/create", function(req,res){
+    const question = new Question ({
+    question1: req.body.q1,
+    answer: req.body.a1,
+    question2: req.body.q2 ,
+    answer2: req.body.a2,
+    question3: req.body.q3,
+    answer3: req.body.a3,
+    question4: req.body.q4,
+    answer4: req.body.a4,
+    question5: req.body.q5,
+    answer5: req.body.a5,
+    date: req.body.date,
+    })
+
+    question.save()
+
+    res.redirect("/create")
+})  
 app.post("/questions", function(req, res){
-    User.updateOne({_id: req.user._id}, {points: req.body.points}, function(err){
+    var points = 0
+    Question.find({}, function(err, foundQuestions){
         if(err){
             console.log(err)
         } else {
-            res.redirect("/poll")
+            if (req.body.a1 === foundQuestions.answer1){
+                points = points+100
+            }
+            else if (req.body.a2 === foundQuestions.answer2){
+                points = points+100
+            }else  if (req.body.a3 === foundQuestions.answer3){
+                points = points+100
+            } else  if (req.body.a4 === foundQuestions.answer4){
+                points = points+100
+            }else  if (req.body.a5 === foundQuestions.answer5){
+                points = points+100
+            }else {
+                points = points-200
+            }
+        }
+    })
+    User.updateOne({_id: req.user._id}, {points: req.user.points + points}, function(err){
+        if(err){
+            console.log(err)
+        } else {
+            res.redirect("/")
         }
     })
 })
