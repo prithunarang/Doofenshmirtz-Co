@@ -35,15 +35,29 @@ const userSchema = new mongoose.Schema ({
     email: String,
     password: String,
     googleId: String,
-    
-    
+    points: Number,
 });
+
+const questionSchema = new mongoose.Schema ({
+    question1: String,
+    answer: String,
+    question2: String,
+    answer2: String,
+    question3: String,
+    answer3: String,
+    question4: String,
+    answer4: String,
+    question5: String,
+    answer5: String,
+    date: String,
+})
+
 
 userSchema.plugin(passportLocalMongoose)
 userSchema.plugin(findOrCreate)
 
 const User = new mongoose.model("User", userSchema)
-
+const Question = new mongoose.model("Question", questionSchema)
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -73,6 +87,59 @@ app.get("/", function(req, res){
     }
 })
 
+
+
+app.get("/leaderboard", function(req, res){
+    if(req.isAuthenticated()){
+        User.find({points: points >35000 }, function(err, foundUsers){
+            if(err){
+                console.log(err)
+            } else {
+                res.render("leaderboard", {user: req.user.username, users: foundUsers})
+            }
+        })
+    } else {
+        res.render("index")
+    }
+})
+
+app.get("/questions", function(req, res){
+    if(req.isAuthenticated()){
+        Question.find({}, function(err, foundQuestions){
+            if(err){
+                console.log(err)
+            } else {
+                res.render("poll", {user: req.user.username, questions: foundQuestions})
+            }
+            
+        })
+    }
+})
+    
+app.get("/create", function(req, res){
+    if(req.isAuthenticated()){
+        if(req.user.username === "admin"){
+            res.render("create_poll")
+        }else{  
+            res.redirect("/login")
+            alert
+        }
+    }else{
+        res.redirect("/login")
+    }
+})
+
+    
+app.post("/questions", function(req, res){
+    User.updateOne({_id: req.user._id}, {points: req.body.points}, function(err){
+        if(err){
+            console.log(err)
+        } else {
+            res.redirect("/poll")
+        }
+    })
+})
+
 app.post("/register", function(req, res){
     User.register({username: req.body.username, email: req.body.email}, req.body.password, function(err, user){
         if(err){
@@ -86,9 +153,6 @@ app.post("/register", function(req, res){
     })
 })
 
-
-
-
 app.post("/login", function(req, res){
     const user = new User({
         username: req.body.username,
@@ -97,6 +161,7 @@ app.post("/login", function(req, res){
     req.login(user, function(err){
         if(err){
             console.log(err)
+            res.redirect("/login")
         } else {
             passport.authenticate("local")(req, res, function(){
                 res.redirect("/")
