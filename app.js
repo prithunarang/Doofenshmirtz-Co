@@ -91,7 +91,7 @@ app.get("/", function(req, res){
 
 app.get("/leaderboard", function(req, res){
     if(req.isAuthenticated()){
-        User.find({points: points >35000 }, function(err, foundUsers){
+        User.find({}).then( function(err, foundUsers){
             if(err){
                 console.log(err)
             } else {
@@ -104,17 +104,28 @@ app.get("/leaderboard", function(req, res){
 })
 
 app.get("/questions", function(req, res){
+    
     if(req.isAuthenticated()){
-        Question.find({}).then( function(err, foundQuestions){
-            if(err){
-                console.log(err)
-            } else {
-                res.render("poll", {user: req.user.username, questions: foundQuestions})
-            }
+        Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
             
+                res.render("poll", {user: req.user.username, 
+                    question1: foundQuestion.question1
+                    , question2: foundQuestion.question2
+                    , question3: foundQuestion.question3
+                    , question4: foundQuestion.question4
+                    , question5: foundQuestion.question5
+                    , date: foundQuestion.date
+
+                })
+
+               console.log(foundQuestion.question1)
         })
+    
+    } else {
+        res.render("index")
     }
 })
+
     
 app.get("/create", function(req, res){
     if(req.isAuthenticated()){
@@ -130,54 +141,73 @@ app.get("/create", function(req, res){
 })
 
 app.post("/create", function(req,res){
-    const question = new Question ({
-    question1: req.body.q1,
-    answer: req.body.a1,
-    question2: req.body.q2 ,
-    answer2: req.body.a2,
-    question3: req.body.q3,
-    answer3: req.body.a3,
-    question4: req.body.q4,
-    answer4: req.body.a4,
-    question5: req.body.q5,
-    answer5: req.body.a5,
-    date: req.body.date,
+    const filter = { _id: "64674527da473e32b3259012" };
+    const update = {
+        question1: req.body.q1,
+        answer: req.body.a1,
+        question2: req.body.q2,
+        answer2: req.body.a2,
+        question3: req.body.q3,
+        answer3: req.body.a3,
+        question4: req.body.q4,
+        answer4: req.body.a4,
+        question5: req.body.q5,
+        answer5: req.body.a5,
+        date: req.body.date
+    };
+
+    Question.updateOne(filter, update).then( function(){
+        console.log("updated")
     })
 
-    question.save()
+
 
     res.redirect("/create")
 })  
 app.post("/questions", function(req, res){
-    var points = 0
-    Question.find({}, function(err, foundQuestions){
-        if(err){
-            console.log(err)
-        } else {
-            if (req.body.a1 === foundQuestions.answer1){
+   
+    Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
+        var points = 0
+        var correct = 0
+            console.log(foundQuestion.answer2)
+        if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4 && req.body.a5 === foundQuestion.answer5){
+            points = points+500
+            correct = 5
+        
+        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4){
+            points = points+400
+            correct = 4
+        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3){
+            points = points+300
+            correct = 3
+        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2){
+            points = points+200
+            correct = 2
+        
+        } else if (req.body.a1 === foundQuestion.answer1){
                 points = points+100
+                correct = 1
+            } else {
+                points = 10
+                correct = 0
             }
-            else if (req.body.a2 === foundQuestions.answer2){
-                points = points+100
-            }else  if (req.body.a3 === foundQuestions.answer3){
-                points = points+100
-            } else  if (req.body.a4 === foundQuestions.answer4){
-                points = points+100
-            }else  if (req.body.a5 === foundQuestions.answer5){
-                points = points+100
-            }else {
-                points = points-200
-            }
-        }
-    })
-    User.updateOne({_id: req.user._id}, {points: req.user.points + points}, function(err){
-        if(err){
-            console.log(err)
-        } else {
+
+            User.updateOne({_id: req.user._id}, {points: req.user.points+points}).then( function(){
+            })
             res.redirect("/")
-        }
-    })
+            alert("You got " + correct + " correct answers and earned " + points + " points!")
+
+        })
+
+        
+
+     
+      
 })
+
+    
+    
+
 
 app.post("/register", function(req, res){
     User.register({username: req.body.username, email: req.body.email}, req.body.password, function(err, user){

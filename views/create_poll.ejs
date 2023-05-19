@@ -1,40 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Doofenshmirtz-Co/public/create-poll.css">
+    <title>Doofenshmirtz</title>
+</head> 
+<body>
+    <nav>
+        <h1>Doofenshmirtz</h1>
+        <button class="menu-toggle" onclick="toggle()">
+            <ion-icon name="menu" size="large"></ion-icon>
+        </button>
+        <ul class="menu hidden">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="/questions">Daily Poll</a></li>
+            <li><a href="#">logout</a></li>
+        </ul>
+    </nav>
+
 <main>
     <h2>Make POLL</h2>
     <form action="/create" method="POST">
     <div class="question">
         <h4>Question 1</h4>
         
-            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question"></textarea>
-            <input type="text" placeholder="Answer" class="answer">
+            <textarea  id="q1" cols="50" rows="2" placeholder="Question" name="q1"></textarea>
+            <input type="text" placeholder="Answer" class="answer" name="a1">
        
     </div>
     <div class="question">
         <h4>Question 2</h4>
         
-            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question"></textarea>
-            <input type="text" placeholder="Answer" class="answer">
+            <textarea  id="q1" cols="50" rows="2" placeholder="Question" name="q2"></textarea>
+            <input type="text" placeholder="Answer" class="answer" name="a2">
        
     </div>
     <div class="question">
-        <h4>Question 2</h4>
+        <h4>Question 3</h4>
         
-            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question"></textarea>
-            <input type="text" placeholder="Answer" class="answer">
+            <textarea  id="q1" cols="50" rows="2" placeholder="Question" name="q3"></textarea>
+            <input type="text" placeholder="Answer" class="answer" name="a3">
        
     </div>
     <div class="question">
         <h4>Question 4</h4>
         
-            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question"></textarea>
-            <input type="text" placeholder="Answer" class="answer">
+            <textarea  id="q1" cols="50" rows="2" placeholder="Question" name="q4"></textarea>
+            <input type="text" placeholder="Answer" class="answer" name="a4">
        
     </div>
     <div class="question">
         <h4>Question 5</h4>
         
-            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question"></textarea>
-            <input type="text" placeholder="Answer" class="answer">
+            <textarea name="Question" id="q1" cols="50" rows="2" placeholder="Question" name="q5"></textarea>
+            <input type="text" placeholder="Answer" class="answer" name="a5">
        <button type="submit">submit</button>
     </form>
     </div>
 </main>
+<%- include("partials/footer"); -%>

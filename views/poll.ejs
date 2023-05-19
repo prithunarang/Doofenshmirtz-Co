@@ -1,35 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Doofenshmirtz-Co/public/poll.css">
+    <title>Doofenshmirtz</title>
+</head> 
+<body>
+    <nav>
+        <h1>Doofenshmirtz</h1>
+        <button class="menu-toggle" onclick="toggle()">
+            <ion-icon name="menu" size="large"></ion-icon>
+        </button>
+        <ul class="menu hidden">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="/questions">Daily Poll</a></li>
+            <li><a href="#">logout</a></li>
+        </ul>
+    </nav>
+
 <main>
         <h2>Today's Poll</h2>
+        <form method="post" action="/questions">
+            
         <div class="questions">
             <div class="question">
-                <p><b>Q-1 </b>Will Karnataka Clashers win against Gujarat in today's match?</p>
-                    <form method="post">
-                        <input type="text" placeholder="Answer">
-                    </form>
+
+               
+                <p><b>Q-1 </b> <%= question1 %></p>
+                   
+        
+                        <input type="text" placeholder="Answer" name="a1">
+                    
             </div>
             <div class="question">
-                <p><b>Q-2 </b>Will Karnataka Clashers win against Gujarat in today's match?</p>
-                    <form method="post">
-                        <input type="text" placeholder="Answer">
-                    </form>
+                <p><b>Q-2 </b> <%= question2 %></p>
+                    
+                        <input type="text" placeholder="Answer" name="a2">
+                    
             </div>
             <div class="question">
-                <p><b>Q-3 </b>Will Karnataka Clashers win against Gujarat in today's match?</p>
-                    <form method="post">
-                        <input type="text" placeholder="Answer">
-                    </form>
+                <p><b>Q-3 </b><%= question3 %></p>
+                   
+                        <input type="text" placeholder="Answer" name="a3">
+                   
             </div>
             <div class="question">
-                <p><b>Q-4 </b>Will Karnataka Clashers win against Gujarat in today's match?</p>
-                    <form method="post">
-                        <input type="text" placeholder="Answer">
-                    </form>
+                <p><b>Q-4 </b><%= question4 %></p>
+                   
+                        <input type="text" placeholder="Answer" name="a4">
+                    
             </div>
             <div class="question">
-                <p><b>Q-5 </b>Will Karnataka Clashers win against Gujarat in today's match?</p>
-                    <form method="post">
-                        <input type="text" placeholder="Answer">
-                    </form>
+                <p><b>Q-5 </b> <%= question5 %></p>
+                    
+                        <input type="text" placeholder="Answer" name="a5">
+
+                        
+                    
+                    
             </div>
         </div>
+        <button type="submit">submit</button>
+        </form>
+       
     </main>
+
+    
+
+    <%- include('partials/footer') %>
