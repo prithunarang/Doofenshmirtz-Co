@@ -91,12 +91,10 @@ app.get("/", function(req, res){
 
 app.get("/leaderboard", function(req, res){
     if(req.isAuthenticated()){
-        User.find({}).then( function(err, foundUsers){
-            if(err){
-                console.log(err)
-            } else {
+        User.find().then( function(err, foundUsers){
+           
                 res.render("topper", {user: req.user.username, users: foundUsers})
-            }
+            
         })
     } else {
         res.render("index")
@@ -165,9 +163,11 @@ app.post("/create", function(req,res){
     res.redirect("/create")
 })  
 app.post("/questions", function(req, res){
+    if(req.isAuthenticated()){
+        
    
     Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
-        var points = 0
+        var points = 100
         var correct = 0
             console.log(foundQuestion.answer2)
         if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4 && req.body.a5 === foundQuestion.answer5){
@@ -192,14 +192,25 @@ app.post("/questions", function(req, res){
                 correct = 0
             }
 
-            User.updateOne({_id: req.user._id}, {points: req.user.points+points}).then( function(){
+            var update = points + req.user.points
+            var filter = req.user._id;
+         
+            User.findByIdAndUpdate(filter, { points: update })
+            .then((result) => {
+              console.log('Documents updated:', result.nModified);
             })
-            res.redirect("/")
-            alert("You got " + correct + " correct answers and earned " + points + " points!")
-
+            .catch((error) => {
+              console.error('Error updating documents:', error);
+            });
+            alert("You got " + correct + " correct and earned " + points + " points")
+           
         })
-
+       
         
+        res.redirect("/questions")
+    } else {
+        res.redirect("/login")
+    }
 
      
       
@@ -210,7 +221,7 @@ app.post("/questions", function(req, res){
 
 
 app.post("/register", function(req, res){
-    User.register({username: req.body.username, email: req.body.email}, req.body.password, function(err, user){
+    User.register({username: req.body.username, email: req.body.email, points: 0}, req.body.password,  function(err, user){
         if(err){
             console.log(err)
             res.redirect("/register")
@@ -225,7 +236,8 @@ app.post("/register", function(req, res){
 app.post("/login", function(req, res){
     const user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+       
     })
     req.login(user, function(err){
         if(err){

@@ -5,11 +5,16 @@
 </center>
 
 <div class="leaderboard">
-    <% for(var i=0; i<users.length; i++) { %>
-    <div class="user">
-        <div class="username"><%= users[i].username %></div>
-        <div class="points"><%= users[i].points %></div>
-    </div>
-    <% } %>
+    
+        <% users.forEach(function(user) { %>
+            <% for(var i=0; i<users.length; i++) { %>
+            <% if(user.username == req.session.username) { %>
+                <div class="user">
+                    <div class="username"><%= users[i].username %></div>
+                    <div class="points"><%= users[i].points %></div>
+                </div>
+                <% } %>
+            <% }) %>
+        <% }) %>
 
     <%- include("partials/footer") -%>
