@@ -1,20 +1,19 @@
 <%- include("partials/header"); -%>
-
+<% users.sort((a, b) => b.points - a.points); %>
 <center>
     <h1>Leader board</h1>
 </center>
 
 <div class="leaderboard">
     
-        <% users.forEach(function(user) { %>
-            <% for(var i=0; i<users.length; i++) { %>
-            <% if(user.username == req.session.username) { %>
-                <div class="user">
-                    <div class="username"><%= users[i].username %></div>
-                    <div class="points"><%= users[i].points %></div>
-                </div>
-                <% } %>
-            <% }) %>
-        <% }) %>
+    
+
+    
+    <% users.forEach((user, index) => { %>
+      <p><%= index + 1 %>. <%= user.username %> - <%= user.points %> points</p>
+    <% }); %>
+
+</div>
+
 
     <%- include("partials/footer") -%>

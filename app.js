@@ -99,11 +99,10 @@ app.get("/", function(req, res){
 
 app.get("/leaderboard", function(req, res){
     if(req.isAuthenticated()){
-        User.find().then( function(err, foundUsers){
-           
-                res.render("topper", {user: req.user.username, users: foundUsers})
-            
+        User.find().then( function(foundUsers){
+            res.render("topper", {user: req.user.username, users: foundUsers})
         })
+
     } else {
         res.render("index")
     }
@@ -230,7 +229,7 @@ app.post("/questions", function(req, res){
         
    
     Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
-        var points = 100
+        var points = 0
         var correct = 0
             console.log(foundQuestion.answer2)
         if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4 && req.body.a5 === foundQuestion.answer5){
