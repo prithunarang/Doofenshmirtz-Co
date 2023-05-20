@@ -1,0 +1,28 @@
+<%- include("partials/header"); -%>
+
+<main>
+    <center>
+        <h1>Chats</h1>
+       </center>
+       
+         <div class="chat">
+            <% chats.forEach(function(chat) { %>
+                <div class="message">
+                     <div class="username"><%= chat.username %></div>
+                     <div class="text"><%= chat.message %></div>
+                     <form action="/delete" method="post">
+                        <input type="hidden" name="id" value="<%= chat._id %>">
+                        <button type="submit" value="<%= chat.userid %>" name="uid">Delete</button>
+                       
+                     </form>
+                </div>
+                <br> <br>
+              <% }) %>
+         </div>
+     
+<br><br> 
+     <form action="/chat" method="post">
+        <input type="text" placeholder="type a message" name="message"> 
+        <button type="submit">Send</button>
+     </form>
+</main>

@@ -52,12 +52,20 @@ const questionSchema = new mongoose.Schema ({
     date: String,
 })
 
+const chatSchema = new mongoose.Schema ({
+    username: String,
+    message: String,
+    date: String,
+    userid: String,
+})
+
 
 userSchema.plugin(passportLocalMongoose)
 userSchema.plugin(findOrCreate)
 
 const User = new mongoose.model("User", userSchema)
 const Question = new mongoose.model("Question", questionSchema)
+const Chat = new mongoose.model("Chat", chatSchema)
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -100,6 +108,61 @@ app.get("/leaderboard", function(req, res){
         res.render("index")
     }
 })
+
+app.get("/chat", function(req, res){
+    if(req.isAuthenticated()){
+        Chat.find()
+        .then((documents) => {
+            res.render("chat", {user: req.user.username, chats: documents, })
+        })
+        .catch((error) => {
+          console.error('Error finding documents:', error);
+        });
+           
+       
+    } else {
+        res.render("index")
+    }
+    
+})
+
+app.post("/chat", function(req, res){
+    if(req.isAuthenticated()){
+        const chat = new Chat({
+            username: req.user.username,
+            message: req.body.message,
+            date: req.body.date,
+            userid: req.user._id
+
+        })
+        chat.save()
+        res.redirect("/chat")
+    } else {
+        res.render("index")
+    }
+})
+
+app.post("/delete", function(req, res){
+    if(req.isAuthenticated()){
+        if(req.user._id === req.body.uid){
+         
+            Chat.findByIdAndDelete(req.body.id).then( function(err){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log("deleted")
+                }
+            })
+            res.redirect("/chat")
+        }else{
+            res.redirect("/chat")
+            alert("You can only delete your own messages")
+        }
+    } else {
+        res.render("index")
+    }
+})
+
 
 app.get("/questions", function(req, res){
     
