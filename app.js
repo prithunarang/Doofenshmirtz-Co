@@ -314,6 +314,20 @@ app.post("/login", function(req, res){
 })
 
 
+app.get("/logout", function(req, res){
+    if(req.isAuthenticated()){
+        
+            req.logout(function(err){
+                console.log(err);
+            });
+            res.redirect("/")
+        
+    }else{
+        res.redirect("/")
+    }
+    
+})
+
 
 app.listen( process.env.PORT || 3000, function(){
     console.log("Server is running at port 3000")
