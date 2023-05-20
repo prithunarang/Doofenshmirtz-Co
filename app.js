@@ -87,12 +87,19 @@ app.get("/register", function(req, res){
     res.render("sign-up")
 })
 
-app.get("/", function(req, res){   
-    if(req.isAuthenticated()){
+app.get("/user", function(req, res){ 
+    if(req.isAuthenticated()){  
+    
         res.render("home", {user: req.user.username, points: req.user.points})
+
     } else {
-        res.render("index")
+        res.redirect("/login")
     }
+    
+})
+
+app.get("/", function(req, res){
+    res.render("index")
 })
 
 
@@ -289,7 +296,7 @@ app.post("/register", function(req, res){
             res.redirect("/register")
         } else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/")
+                res.redirect("/user")
             })
         }
     })
@@ -307,7 +314,7 @@ app.post("/login", function(req, res){
             res.redirect("/login")
         } else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/")
+                res.redirect("/user")
             })
         }
     })
