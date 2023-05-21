@@ -32,7 +32,7 @@
                     <p><%= chat.message %></p>
                     <form action="/delete" method="post">
                         <input type="hidden" name="id" value="<%= chat._id %>">
-                        <button type="submit" value="<%= chat.userid %>" name="uid"><ion-icon name="trash-outline"></ion-icon></button>
+                        <button type="submit" value="<%= chat.userid %>" name="uid" class="btn"><ion-icon name="trash-outline"></ion-icon></button>
                        
                      </form>
                     
@@ -77,6 +77,6 @@
 var chatSection = document.querySelector('.message');
 
 
-chatSection.scrollTop = chatSection.scrollHeight;
+chatSection.scrollBottom = chatSection.scrollHeight;
 </script>
 </html>
