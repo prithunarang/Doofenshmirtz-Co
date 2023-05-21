@@ -14,10 +14,10 @@ name = "MONGODB_URI"
 generator = "mongodb-atlas"
 
 [[services.envs]]
-name = "Our little secret"
+name = "SESSION_SECRET"
 generator = "secret"
 
 [[databases]]
-name = "test"
+name = "mongodb-uri"
 type = "mongodb"
 version = "4.4"
