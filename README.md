@@ -1,7 +1,7 @@
 # Doofenshmirtz
 
-## Hosted on Vercel
--https://
+## Hosted on Railway
+-https://web-production-508f.up.railway.app/
 
 ## how to run
 - run `npm i` and `nnde app.js` respectively
