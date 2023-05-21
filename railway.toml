@@ -1,0 +1,23 @@
+name = "Doofenshmirtz"
+author = "prithunarang"
+
+[[services]]
+internal_port = 3000
+command = "npm start"
+env = {
+  "MONGODB_URI" = "mongodb+srv://prithunarang:Krsna108@e-commerce.ls62ryh.mongodb.net",
+  "SESSION_SECRET" = "Our little secret"
+}
+
+[[services.envs]]
+name = "MONGODB_URI"
+generator = "mongodb-atlas"
+
+[[services.envs]]
+name = "Our little secret"
+generator = "secret"
+
+[[databases]]
+name = "test"
+type = "mongodb"
+version = "4.4"
