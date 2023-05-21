@@ -222,9 +222,7 @@ app.post("/create", function(req,res){
         answer3: req.body.a3,
         question4: req.body.q4,
         answer4: req.body.a4,
-        question5: req.body.q5,
-        answer5: req.body.a5,
-        date: req.body.date
+       
     };
 
     Question.updateOne(filter, update).then( function(){
