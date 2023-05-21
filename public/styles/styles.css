@@ -156,6 +156,7 @@ main .hero {
 }
 main .hero .text p {
   margin-block: 2rem;
+  max-width:20rem;
 }
 main .hero .text a {
   color: #ffffff;
