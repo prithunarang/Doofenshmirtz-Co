@@ -8,6 +8,7 @@ const passport = require('passport')
 const passportLocalMongoose = require('passport-local-mongoose')
 const findOrCreate = require('mongoose-findorcreate')
 const alert= require('alert')
+const sass = require('node-sass');
 
 const app = express();
 
@@ -28,6 +29,33 @@ app.use(passport.session());
 
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb+srv://prithunarang:Krsna108@e-commerce.ls62ryh.mongodb.net', {useNewUrlParser:true});
+
+
+// const scssFiles = [
+//     {
+//       input: '/public/styles.scss',
+//       output: './public/styles.css'
+//     },
+//     {
+//       input: './public/create-poll.scss',
+//       output: './public/create-poll.css'
+//     },
+    
+//   ];
+  
+//   scssFiles.forEach((file) => {
+//     sass.render({
+//       file: file.input,
+//       outFile: file.output,
+//     }, function(error, result) {
+//       if (!error) {
+//         fs.writeFileSync(file.output, result.css);
+//         console.log(`SCSS compiled successfully: ${file.input} -> ${file.output}`);
+//       } else {
+//         console.error(`Error compiling SCSS: ${file.input}`, error);
+//       }
+//     });
+//   });
 
 
 const userSchema = new mongoose.Schema ({

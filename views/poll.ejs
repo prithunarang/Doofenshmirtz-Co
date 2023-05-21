@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Doofenshmirtz-Co/public/poll.css">
+    <link rel="stylesheet" href="styles/poll.css">
     <title>Doofenshmirtz</title>
 </head> 
 <body>
@@ -19,13 +19,13 @@
         <ul class="menu hidden">
             <li><a href="/user">Home</a></li>
             <li><a href="/chat">Chat</a></li>
-            <li><a href="/questions">Daily Poll</a></li>
+            <li><a href="/questions">Daily Quiz</a></li>
             <li><a href="/logout">logout</a></li>
         </ul>
     </nav>
 
 <main>
-        <h2>Today's Poll</h2>
+        <h2>Today's Quiz</h2>
         <form method="post" action="/questions">
             
         <div class="questions">
@@ -66,11 +66,26 @@
                     
             </div>
         </div>
-        <button type="submit">submit</button>
+        <button type="submit" class="btn">submit</button>
         </form>
        
     </main>
 
     
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon name="logo-facebook"></ion-icon>
+    </footer>
+</body>   
+<script>
+    const menu = document.querySelector('.menu')
 
-    <%- include('partials/footer') %>
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+</script>
+</html>
+

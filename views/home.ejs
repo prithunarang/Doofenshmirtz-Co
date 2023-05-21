@@ -1,15 +1,77 @@
-<%- include("partials/header") -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Doofenshmirtz</title>
+</head> 
+<body>
+    <nav>
+        <h1>Doofenshmirtz</h1>
+        <button class="menu-toggle" onclick="toggle()">
+            <ion-icon name="menu" size="large"></ion-icon>
+        </button>
+        <ul class="menu hidden">
+            <li><a href="/user">Home</a></li>
+            <li><a href="/chat">Chat</a></li>
+            <li><a href="/questions">Daily Poll</a></li>
+            <li><b> Hi <%= user %> </b> </li>
+            <li><a href="/leaderboard">leaderboard</a></li>
+
+            <li><a href="/logout"><button class="btn">Logout</button></li></a>
+            
+
+        </ul>
+    </nav>
+   
     <main>
-        <div class="greet">Hi, <b> <%= user %> </b> <br> Your points are <%= points %> </div>
-        <div class="news">
-            <h2>Latest In IPL</h2>
-            <div class="articles">
-                <div class="article">
-                    <img src="" alt="">
-                    <h3></h3>
-                    <p></p>
-                </div>
+        <div class="hero">
+        <div class="text">
+            <h1>IPL,at you fingertips.</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut eaque alias minima. Maiores, reiciendis tenetur? Deserunt eveniet quisquam, hic quasi vel accusantium voluptates cumque aut!</p><br>
+            <h3><b> Hi <%= user %> !! Your points are <%= points %> </b></h3>
+            
+        </div>           
+            <img src="Images/cricket_graphic.png" alt="">
+        </div>
+        <div class="features">
+            <h2>Experience IPL like never before</h2>
+            <div class="features-grid">
+                <a href="/chat">
+                    <div class="feature">
+                        <img src="Images/chat_graphic.png" alt="">
+                        <p>Chat with IPL fans</p>
+                    </div>
+                </a>
+                <a href="/questions">
+                    <div class="feature">
+                        <img src="Images/Quiz_graphic.png" alt="">
+                        <p>Take the daily quiz</p>
+                    </div>
+               </a>
             </div>
         </div>
     </main>
-    <%- include("partials/footer") -%>
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <div class="socials">
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+    </footer>
+</body>   
+<script>
+    const menu = document.querySelector('.menu')
+
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+</script>
+</html>

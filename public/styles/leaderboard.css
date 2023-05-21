@@ -32,8 +32,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 main {
   padding: 1rem;
-  background-color: #CAD2C5;
-  color: #354F52;
+  background-color: #ffffff;
+  color: #263d58;
 }
 
 body {
@@ -42,14 +42,13 @@ body {
 }
 
 nav {
-  background: #84A98C;
+  background: #ffffff;
   display: flex;
-  color: #2F3E46;
+  color: #263d58;
   padding-block: 1rem;
   padding-inline: 1rem 1.5rem;
   align-items: center;
   position: sticky;
-  box-shadow: 2px black;
 }
 nav .menu-toggle {
   display: none;
@@ -62,16 +61,31 @@ nav ul {
   list-style-type: none;
   background-color: none;
   flex-direction: row;
+  align-items: center;
+}
+nav ul .btn {
+  background-color: #263d58;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: none;
+  transition: background-color 250ms;
+  border-radius: 10px;
+}
+nav ul .btn:hover {
+  background-color: #2e496a;
+  color: #ffffff;
 }
 nav ul a {
   text-decoration: none;
-  color: #2F3E46;
+  color: #263d58;
   transition: color 250ms;
+  border-radius: 10px;
 }
 nav ul a:hover {
-  color: #435965;
+  color: #35567c;
 }
-@media (width < 500px) {
+@media (max-width: 800px) {
   nav {
     padding-inline: 1rem 0;
   }
@@ -89,7 +103,7 @@ nav ul a:hover {
   nav ul {
     flex-direction: column;
     top: 68px;
-    background-color: #2F3E46;
+    background-color: #e2f4fe;
     right: 0;
     padding-right: 1.5rem;
     padding-top: 0.5rem;
@@ -100,37 +114,46 @@ nav ul a:hover {
     display: none;
   }
   nav ul a {
-    color: #CAD2C5;
+    color: #263d58;
   }
 }
 
 footer {
   padding: 1rem;
+  height: -moz-min-content;
+  height: min-content;
   display: flex;
-  color: #2F3E46;
-  background-color: #84A98C;
+  color: #ffffff;
+  background-color: #263d58;
   gap: 1rem;
   align-items: center;
 }
 footer h2 {
   flex-grow: 1;
 }
-
-main .question {
-  margin: 1rem;
-}
-main .question form {
+footer .socials {
   display: flex;
-  flex-direction: column;
-  flex-shrink: 1;
-  gap: 0.5rem;
+  gap: 1rem;
 }
-main .question form textarea {
-  resize: vertical;
+footer .socials a {
+  color: #ffffff;
 }
-main .question form textarea, main .question form input {
-  background-color: #84A98C;
-  border: none;
-  outline: 2px solid #354F52;
-  border-radius: 5px;
-}/*# sourceMappingURL=create-poll.css.map */
+@media (max-width: 650px) {
+  footer {
+    flex-direction: column;
+  }
+}
+
+main {
+  display: grid;
+  place-items: center;
+}
+main table {
+  background-color: #e2f4fe;
+  border: 2px solid #263d58;
+  border-radius: 10px;
+}
+main table td {
+  padding: 0.2rem;
+  margin: 1rem;
+}/*# sourceMappingURL=leaderboard.css.map */

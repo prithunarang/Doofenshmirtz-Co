@@ -1,28 +1,82 @@
-<%- include("partials/header"); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<main>
-    <center>
-        <h1>Chats</h1>
-       </center>
-       
-         <div class="chat">
-            <% chats.forEach(function(chat) { %>
+</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/chat.css">
+    <title>Doofenshmirtz</title>
+</head> 
+<body>
+    <nav>
+        <h1>Doofenshmirtz</h1>
+        <button class="menu-toggle" onclick="toggle()">
+            <ion-icon name="menu" size="large"></ion-icon>
+        </button>
+        <ul class="menu hidden">
+            <li><a href="/user">Home</a></li>
+            <li><a href="/chat">Chat</a></li>
+            <li><a href="/questions">Daily Poll</a></li>
+            <li><a href="/logout"><button class="btn">Logout</button></li></a>
+        </ul>
+    </nav>
+    <main>
+        <div class="chat">
+            <div class="messages">
+                <% chats.forEach(function(chat) { %>
                 <div class="message">
-                     <div class="username"><%= chat.username %></div>
-                     <div class="text"><%= chat.message %></div>
-                     <form action="/delete" method="post">
+                    <span class="user"><b><%= chat.username %></b></span>
+                    <p><%= chat.message %></p>
+                    <form action="/delete" method="post">
                         <input type="hidden" name="id" value="<%= chat._id %>">
-                        <button type="submit" value="<%= chat.userid %>" name="uid">Delete</button>
+                        <button type="submit" value="<%= chat.userid %>" name="uid"><ion-icon name="trash-outline"></ion-icon></button>
                        
                      </form>
+                    
+                   
                 </div>
-                <br> <br>
-              <% }) %>
-         </div>
-     
-<br><br> 
-     <form action="/chat" method="post">
-        <input type="text" placeholder="type a message" name="message"> 
-        <button type="submit">Send</button>
-     </form>
-</main>
+
+                <% }) %>
+            </div>
+            <form class="send" action="/chat" method="post">
+                <input type="text" placeholder="Message" name="message">
+                <button type="submit"><ion-icon name="send"></ion-icon></button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <div class="socials">
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+    </footer>
+</body>   
+<script>
+    const menu = document.querySelector('.menu')
+
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+
+    $(function () {
+  $('form').on('submit', function (event) {
+    event.preventDefault();
+    var message = $('.message').first().clone();
+    message.find('p').text($('input').val());
+    message.prependTo('.chat');
+    $('input').val('');
+  });
+});
+
+var chatSection = document.querySelector('.message');
+
+
+chatSection.scrollTop = chatSection.scrollHeight;
+</script>
+</html>

@@ -1,19 +1,64 @@
-<%- include("partials/header"); -%>
-<% users.sort((a, b) => b.points - a.points); %>
-<center>
-    <h1>Leader board</h1>
-</center>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<div class="leaderboard">
+</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/leaderboard.css">
+    <title>Doofenshmirtz</title>
+</head> 
+<body>
+    <nav>
+        <h1>Doofenshmirtz</h1>
+        <button class="menu-toggle" onclick="toggle()">
+            <ion-icon name="menu" size="large"></ion-icon>
+        </button>
+        <ul class="menu hidden">
+            <li><a href="/user">Home</a></li>
+            <li><a href="/chat">Chat</a></li>
+            <li><a href="/questions">Daily Poll</a></li>
+            <li><a href="/logout"><button class="btn">Logout</button></a></li>
+        </ul>
+    </nav>
+
+    <% users.sort((a, b) => b.points - a.points); %>
     
+    <main>
+        <h1>Leaderboard</h1>
+        <table cellspacing="50px">
+            <tr>
+                <td><b>Rank</b></td>
+                <td><b>Username</b></td>
+                <td><b>Points</b></td>
+            </tr>
+            <% users.forEach((user, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= user.username %></td>
+                <td><%= user.points %></td>
+            </tr>
+            <% }); %>
+            
+        </table>
+    </main>
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <div class="socials">
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+    </footer>
+    </body>   
+    <script>
+    const menu = document.querySelector('.menu')
     
-
-    
-    <% users.forEach((user, index) => { %>
-      <p><%= index + 1 %>. <%= user.username %> - <%= user.points %> points</p>
-    <% }); %>
-
-</div>
-
-
-    <%- include("partials/footer") -%>
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+    </script>
+    </html>

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Doofenshmirtz-Co/public/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <title>Doofenshmirtz</title>
 </head> 
 <body>
@@ -17,24 +17,50 @@
             <ion-icon name="menu" size="large"></ion-icon>
         </button>
         <ul class="menu hidden">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="/login">login</a></li>
-            <li><a href="/register">Sign-up</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login" class="btn">Log In</a></li>
+            <li><a href="/register" class="btn">Sign Up</a></li>
         </ul>
     </nav>
-
-    
     <main>
-        <div class="news">
-            <h2>Latest In IPL</h2>
-            <div class="articles">
-                <div class="article">
-                    <img src="" alt="">
-                    <h3>fksjfl</h3>
-                    <p>fdgsdgd</p>
+        <div class="hero">
+        <div class="text">
+            <h1>IPL,at you fingertips.</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut eaque alias minima. Maiores, reiciendis tenetur? Deserunt eveniet quisquam, hic quasi vel accusantium voluptates cumque aut!</p><br>
+            <a href="/login">Log In</a>
+            <a href="/register">Sign Up</a>
+        </div>           
+            <img src="Images/cricket_graphic.png" alt="">
+        </div>
+        <div class="features">
+            <h2>Experience IPL like never before</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <img src="Images/chat_graphic.png" alt="">
+                    <p>Chat with felow IPL fans</p>
+                </div>
+                <div class="feature">
+                    <img src="Images/Quiz_graphic.png" alt="">
+                    <p>Take the daily quiz</p>
                 </div>
             </div>
         </div>
     </main>
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <div class="socials">
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+    </footer>
+</body>   
+<script>
+    const menu = document.querySelector('.menu')
 
-<%- include("partials/footer"); -%>
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+</script>
+</html>

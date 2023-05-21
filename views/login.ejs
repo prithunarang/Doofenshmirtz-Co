@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Doofenshmirtz-Co/public/styles.css">
+    <link rel="stylesheet" href="styles/log_in.css">
     <title>Doofenshmirtz</title>
 </head> 
 <body>
@@ -17,24 +17,39 @@
             <ion-icon name="menu" size="large"></ion-icon>
         </button>
         <ul class="menu hidden">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="/login">login</a></li>
-            <li><a href="/register">Sign-up</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login" class="btn">Log In</a></li>
+            <li><a href="/register" class="btn">Sign Up</a></li>
         </ul>
     </nav>
+    <main>
+       
+        <div class="box">
+            <center><h2>Log In</h2></center>
+            <form action="/login" method="post">
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="password">
+                <button class="btn" type="submit">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="/register">Sign Up</a></p>
+        </div>
+    </main>
 
-<form action="/login" method="post">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" />
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
-</form>
+    <footer>
+        <h2>Doofenshmirtz</h2>
+        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
+        <div class="socials">
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        </div>
+    </footer>
+</body>   
+<script>
+    const menu = document.querySelector('.menu')
 
-<%- include("partials/footer") -%>
+    function toggle(){
+        menu.classList.toggle('hidden')
+    }
+</script>
+</html>
