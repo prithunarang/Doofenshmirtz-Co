@@ -36,36 +36,37 @@
                 <p><b>Q-1 </b> <%= question1 %></p>
                    
         
-                        <input type="text" placeholder="Answer" name="a1">
+                
+                <input type="radio" name="a1" value="yes" id="yes"> <label for="#yes">yes</label>
+                <input type="radio" name="a1" value="no" id="no"> <label for="#no">no</label>
+           
+           
                     
             </div>
             <div class="question">
                 <p><b>Q-2 </b> <%= question2 %></p>
                     
-                        <input type="text" placeholder="Answer" name="a2">
+                <input type="radio" value="yes" name="a2" id="yes"> <label for="#yes">yes</label>
+                <input type="radio" value="no"  name="a2" id="no"> <label for="#no">no</label>
+           
                     
             </div>
             <div class="question">
                 <p><b>Q-3 </b><%= question3 %></p>
                    
-                        <input type="text" placeholder="Answer" name="a3">
+                <input type="radio" value="yes" name="a3" id="yes"> <label for="#yes">yes</label>
+            <input type="radio" value="no" name="a3" id="no"> <label for="#no">no</label>
+       
                    
             </div>
             <div class="question">
                 <p><b>Q-4 </b><%= question4 %></p>
                    
-                        <input type="text" placeholder="Answer" name="a4">
-                    
+                <input type="radio" value="yes" name="a4" id="yes"> <label for="#yes">yes</label>
+                <input type="radio" value="no" name="a4" id="no"> <label for="#no">no</label>
+       
             </div>
-            <div class="question">
-                <p><b>Q-5 </b> <%= question5 %></p>
-                    
-                        <input type="text" placeholder="Answer" name="a5">
-
-                        
-                    
-                    
-            </div>
+            
         </div>
         <button type="submit" class="btn">submit</button>
         </form>

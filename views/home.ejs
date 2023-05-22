@@ -1,78 +1,199 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-
-</ion-icon><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/styles.css">
-    <title>Doofenshmirtz</title>
-</head> 
-<body>
-    <nav>
-        <h1>Doofenshmirtz</h1>
-        <button class="menu-toggle" onclick="toggle()">
-            <ion-icon name="menu" size="large"></ion-icon>
-        </button>
-        <ul class="menu hidden">
-            <li><a href="/user">Home</a></li>
-            <li><a href="/chat">Chat</a></li>
-            <li><a href="/questions">Daily Poll</a></li>
-            <li><b> Hi <%= user %> </b> </li>
-            <li><a href="/leaderboard">leaderboard</a></li>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .carousel {
+            width: 100%;
+            overflow-x: hidden;
+            white-space: nowrap;
+        }
+        .option-card {
+      padding: 0.8rem;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 100vmax;
+      width: 100%;
+      text-align: center;
+    }
+        .carousel-item {
+            display: inline-block;
+            width: 100%;
+        }
+    </style>
+</head>
 
-            <li><a href="/logout"><button class="btn">Logout</button></li></a>
-            
+<body style="font-family: 'Wix Madefor Display', sans-serif;">
+    <!-- component -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-        </ul>
-    </nav>
-   
-    <main>
-        <div class="hero">
-        <div class="text">
-            <h1>IPL,at you fingertips.</h1>
-            <p>Enjoy the match with fellow fans, participate in daily quizzes, earn DoofCoins and get a chance to meet you favourite player 
-            </p><br>
-            <h3><b> Hi <%= user %> !! Your points are <%= points %> </b></h3>
-            
-        </div>           
-            <img src="Images/cricket_graphic.png" alt="">
-        </div>
-        <div class="features">
-            <h2>Experience IPL like never before</h2>
-            <div class="features-grid">
-                <a href="/chat">
-                    <div class="feature">
-                        <img src="Images/chat_graphic.png" alt="">
-                        <p>Chat with IPL fans</p>
-                    </div>
-                </a>
-                <a href="/questions">
-                    <div class="feature">
-                        <img src="Images/Quiz_graphic.png" alt="">
-                        <p>Take the daily quiz</p>
-                    </div>
-               </a>
+    <div class="z-10 antialiased bg-gray-100 dark-mode:bg-gray-900">
+        <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+            <div x-data="{ open: true }"
+                class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+                <div class="flex flex-row items-center justify-between p-4">
+                    <a href="#"
+                        class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"><img
+                            src="Images/logo.png" class="h-10"></a>
+                    <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
+                        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                            <path x-show="!open" fill-rule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                                clip-rule="evenodd"></path>
+                            <path x-show="open" fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <nav :class="{'flex': open, 'hidden': !open}"
+                    class=" z-10 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+                    <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="/">Home</a>
+                    
+                        
+                    <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="/user">Dashboard</a>
+                    <a class=" bg-[#e0b1cb] px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline "
+                        href="/login">Login</a>
+
+                </nav>
             </div>
         </div>
-    </main>
-    <footer>
-        <h2>Doofenshmirtz</h2>
-        <small>Copyright © Doofenshmirtz 2023 All Rights Reserved.</small>
-        <div class="socials">
-            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-        </div>
-    </footer>
-</body>   
-<script>
-    const menu = document.querySelector('.menu')
+    </div>
+    </div>
+    <Section class="px-10 py-10">
+        <% users.sort((a, b) => b.points - a.points); %>
+      <div class="welcome w-full h-full bg-gray-300 rounded-3xl">
+<div>
+  <h1 class="text-4xl">Hi, <b> <%= user %> </b></h1>
+  <h2 class="text-3xl">You have <b><%= points %></b> points.</h2>
+</div>
+      </div>
+      
 
-    function toggle(){
-        menu.classList.toggle('hidden')
-    }
-</script>
+      <div class="w-full h-96 bg-gray-300 rounded-3xl leaderboard relative">
+        <table class="bg-gray-300 rounded-lg">
+            <h1 class=" font-bold flex flex-colsimage.png animate-pulse absolute top-4 left-5">
+                <span class="bg-red-500 px-5 py-2 w-25 rounded-full text-white text-center live">Live ⚫️</span></h1>
+            <tr>
+                <td><b>Rank</b></td>
+                <td><b>Username</b></td>
+                <td><b>Points</b></td>
+            </tr>
+            <% users.forEach((user, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.points %></td>
+                </tr>
+                <% }); %>
+           
+            
+
+        </table>
+      </div>
+
+        <div class="flex flex-cols gap-5">
+            <div>
+            </div>
+
+
+            <div class="w-full h-96 bg-gray-300 rounded-3xl overflow-hidden quiz">
+                
+                    <div class="card p-5" id="card" >
+                        <div class="w-full h-full">
+                            <h1 class=" font-bold flex flex-colsimage.png animate-pulse">
+                                <span class="bg-red-500 px-5 py-2 w-25 rounded-full text-white text-center live">Live ⚫️</span></h1>
+                            <h1 class="text-2xl font-bold flex flex-cols justify-center items-center mt-3" id="question" >
+                               Fetching Questions... </h1>
+        
+                            <div class="flex flex-cols justify-center items-center mt-5">
+                                <div class="flex flex-cols w-full">
+                                    <div class="grid grid-rows gap-2 w-full" id="options">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  
+                 
+                  <script>
+                    const card = document.getElementById('card');
+                    const question = document.getElementById('question');
+                    const optionsContainer = document.getElementById('options');
+                    const cardData = [
+                      {
+                        question: "<%= question1 %>",
+                        options: ['Option 1A', 'Option 1B', 'Option 1C', 'Option 1D']
+                      },
+                      {
+                        question: "<%= question2 %>",
+                        options: ['Option 2A', 'Option 2B', 'Option 2C', 'Option 2D']
+                      },
+                      {
+                        question: "<%= question3 %>",
+                        options: ['Option 3A', 'Option 3B', 'Option 3C', 'Option 3D']
+                      },
+                      {
+                        question: "<%= question4 %>",
+                        options: ['Option 3A', 'Option 3B', 'Option 3C', 'Option 3D']
+                      },
+                      
+                    ];
+                    let currentIndex = 0;
+                
+                    function createOptionCard(option) {
+                      const optionCard = document.createElement('div');
+                      optionCard.classList.add('option-card');
+                      optionCard.textContent = option;
+                      return optionCard;
+                    }
+                
+                    function changeCard() {
+                      question.textContent = cardData[currentIndex].question;
+                      optionsContainer.innerHTML = '';
+                      cardData[currentIndex].options.forEach(option => {
+                        const optionCard = createOptionCard(option);
+                        optionsContainer.appendChild(optionCard);
+                      });
+                      currentIndex = (currentIndex + 1) % cardData.length;
+                    }
+                
+                    setInterval(changeCard, 30000);
+                  </script>
+                
+            </div>
+            <div class=" h-96 bg-gray-300 rounded-3xl chat">
+              <div class="messages">
+                <% chats.forEach(function(chat) { %>
+                    <div class="message">
+                        <span class="user"><b><%= chat.username %></b></span>
+                        <p><%= chat.message %></p>
+                </div>
+                        <% }) %>
+              </div>
+              
+      <div class="send">
+          <form method="post" action="/chat" >
+              <input type="text" placeholder="Message" name="message">
+              <button><ion-icon name="send" size="large"></ion-icon></button>
+          </form>
+      </div>
+
+        </div>
+    </Section>
+</body>
+
 </html>

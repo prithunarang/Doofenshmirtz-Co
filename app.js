@@ -93,13 +93,75 @@ app.get("/register", function(req, res){
 
 app.get("/user", function(req, res){ 
     if(req.isAuthenticated()){  
-    
-        res.render("home", {user: req.user.username, points: req.user.points})
+        User.find().then(function(foundUsers){
 
+            Question.findById( "646af61acecd436c0d1da6f0" ).then( function(foundQuestion) {
+            
+                Chat.find()
+        .then((documents) => {
+            res.render("home", {
+                user: req.user.username, 
+                points: req.user.points, 
+                users: foundUsers,
+                chats: documents,
+                question1: foundQuestion.question1
+                , question2: foundQuestion.question2
+                , question3: foundQuestion.question3
+                , question4: foundQuestion.question4  
+            })
+        })
+        .catch((error) => {
+          console.error('Error finding documents:', error);
+        });
+
+
+        })
+
+           
+        })
+        
     } else {
         res.redirect("/login")
     }
     
+})
+
+app.get("/admin", function(req, res){
+    if(req.isAuthenticated()){ 
+        if(req.user.username === "admin"){
+
+   
+
+   
+
+            User.find().then(function(foundUsers){
+
+                
+                
+                    Chat.find()
+            .then((documents) => {
+                res.render("home_admin", {
+                    user: "Admin",  
+                    users: foundUsers,
+                    chats: documents,
+                   
+                })
+            })
+            .catch((error) => {
+              console.error('Error finding documents:', error);
+            });
+    
+    
+            
+    
+               
+            })
+        } 
+        
+        
+    } else {
+        res.redirect("/login")
+    }
 })
 
 app.get("/", function(req, res){
@@ -108,30 +170,47 @@ app.get("/", function(req, res){
 
 
 
-app.get("/leaderboard", function(req, res){
-    if(req.isAuthenticated()){
-        User.find().then( function(foundUsers){
-            res.render("topper", {user: req.user.username, users: foundUsers})
-        })
+// app.get("/leaderboard", function(req, res){
+//     if(req.isAuthenticated()){
+//         User.find().then( function(foundUsers){
+//             res.render("topper", {user: req.user.username, users: foundUsers})
+//         })
 
-    } else {
-        res.render("index")
-    }
-})
+//     } else {
+//         res.render("index")
+//     }
+// })
 
-app.get("/chat", function(req, res){
-    if(req.isAuthenticated()){
-        Chat.find()
-        .then((documents) => {
-            res.render("chat", {user: req.user.username, chats: documents, })
-        })
-        .catch((error) => {
-          console.error('Error finding documents:', error);
-        });
+// app.get("/chat", function(req, res){
+//     if(req.isAuthenticated()){
+//         Chat.find()
+//         .then((documents) => {
+//             res.render("chat", {user: req.user.username, chats: documents, })
+//         })
+//         .catch((error) => {
+//           console.error('Error finding documents:', error);
+//         });
            
        
+//     } else {
+//         res.render("index")
+//     }
+    
+// })
+app.get("/chat", function(req, res){
+    if(req.user.username === "admin"){
+        res.redirect("/admin")
     } else {
-        res.render("index")
+        res.redirect("/user")
+    }
+    
+})
+
+app.get("/create", function(req, res){
+    if(req.isAuthenticated()){
+        res.redirect("/admin")
+    } else {
+        res.redirect("/user")
     }
     
 })
@@ -154,7 +233,7 @@ app.post("/chat", function(req, res){
 
 app.post("/delete", function(req, res){
     if(req.isAuthenticated()){
-        if(req.user._id === req.body.uid){
+        if(req.user.username === "admin"){
          
             Chat.findByIdAndDelete(req.body.id).then( function(err){
                 if(err){
@@ -163,10 +242,7 @@ app.post("/delete", function(req, res){
                     console.log("deleted")
                 }
             })
-            res.redirect("/chat")
-        }else{
-            res.redirect("/chat")
-            alert("You can only delete your own messages")
+            res.redirect("/admin")
         }
     } else {
         res.render("index")
@@ -174,45 +250,44 @@ app.post("/delete", function(req, res){
 })
 
 
-app.get("/questions", function(req, res){
+// app.get("/questions", function(req, res){
     
-    if(req.isAuthenticated()){
-        Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
+//     if(req.isAuthenticated()){
+//         Question.findById( "646af61acecd436c0d1da6f0" ).then( function(foundQuestion) {
             
-                res.render("poll", {user: req.user.username, 
-                    question1: foundQuestion.question1
-                    , question2: foundQuestion.question2
-                    , question3: foundQuestion.question3
-                    , question4: foundQuestion.question4
-                    , question5: foundQuestion.question5
-                    , date: foundQuestion.date
+//                 res.render("poll", {user: req.user.username, 
+//                      question1: foundQuestion.question1
+//                     , question2: foundQuestion.question2
+//                     , question3: foundQuestion.question3
+//                     , question4: foundQuestion.question4                    
+//                     , date: foundQuestion.date
 
-                })
+//                 })
 
-               console.log(foundQuestion.question1)
-        })
+//                console.log(foundQuestion.question1)
+//         })
     
-    } else {
-        res.render("index")
-    }
-})
+//     } else {
+//         res.render("index")
+//     }
+// })
 
     
-app.get("/create", function(req, res){
-    if(req.isAuthenticated()){
-        if(req.user.username === "admin"){
-            res.render("create_poll")
-        }else{  
-            res.redirect("/login")
+// app.get("/create", function(req, res){
+//     if(req.isAuthenticated()){
+//         if(req.user.username === "admin"){
+//             res.render("create_poll")
+//         }else{  
+//             res.redirect("/login")
            
-        }
-    }else{
-        res.redirect("/login")
-    }
-})
+//         }
+//     }else{
+//         res.redirect("/login")
+//     }
+// })
 
 app.post("/create", function(req,res){
-    const filter = { _id: "64674527da473e32b3259012" };
+    const filter = { _id: "646af61acecd436c0d1da6f0" };
     const update = {
         question1: req.body.q1,
         answer: req.body.a1,
@@ -225,43 +300,46 @@ app.post("/create", function(req,res){
        
     };
 
+    
+
     Question.updateOne(filter, update).then( function(){
         console.log("updated")
     })
 
 
 
-    res.redirect("/create")
+
+    res.redirect("/admin")
 })  
 app.post("/questions", function(req, res){
     if(req.isAuthenticated()){
         
    
-    Question.findById( "64674527da473e32b3259012" ).then( function(foundQuestion) {
+    Question.findById( "646af61acecd436c0d1da6f0" ).then( function(foundQuestion) {
         var points = 0
         var correct = 0
-            console.log(foundQuestion.answer2)
-        if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4 && req.body.a5 === foundQuestion.answer5){
-            points = points+500
-            correct = 5
+            if (req.body.a1 === foundQuestion.answer) {
+                points= points+100
+                correct = correct+1
+            } 
+
+            if (req.body.a2 === foundQuestion.answer2) {
+                points= points+100
+                correct = correct+1
+            } 
+
+            if (req.body.a3 === foundQuestion.answer3) {
+                points= points+100
+                correct = correct+1
+            } 
+
+            if (req.body.a4 === foundQuestion.answer4) {
+                points= points+100
+                correct = correct+1
+            } 
+            
+            
         
-        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3 && req.body.a4 === foundQuestion.answer4){
-            points = points+400
-            correct = 4
-        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2 && req.body.a3 === foundQuestion.answer3){
-            points = points+300
-            correct = 3
-        } else if (req.body.a1 === foundQuestion.answer && req.body.a2 === foundQuestion.answer2){
-            points = points+200
-            correct = 2
-        
-        } else if (req.body.a1 === foundQuestion.answer1){
-                points = points+100
-                correct = 1
-            } else {
-                points = 10
-                correct = 0
-            }
 
             var update = points + req.user.points
             var filter = req.user._id;
@@ -273,12 +351,13 @@ app.post("/questions", function(req, res){
             .catch((error) => {
               console.error('Error updating documents:', error);
             });
+            
             alert("You got " + correct + " correct and earned " + points + " points")
            
         })
        
         
-        res.redirect("/questions")
+        res.redirect("/user")
     } else {
         res.redirect("/login")
     }
@@ -316,7 +395,16 @@ app.post("/login", function(req, res){
             res.redirect("/login")
         } else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/user")
+
+                if(req.user.username === "admin"){
+                    res.redirect("/admin")
+                } else {
+                    res.redirect("/user")
+                }
+               
+                   
+                
+                
             })
         }
     })
