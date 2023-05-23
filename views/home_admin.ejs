@@ -154,7 +154,11 @@
                 <% chats.forEach(function(chat) { %>
                     <div class="message">
                         <span class="user"><b><%= chat.username %></b></span>
-                        <p><%= chat.message %></p>
+                        <p><%= chat.message %></p> <form action="/delete" method="post">
+                            <input type="hidden" name="id" value="<%= chat._id %>">
+                            <button type="submit" value="<%= chat.userid %>" name="uid" class="btn"><ion-icon name="trash-outline"></ion-icon></button>
+                           
+                         </form>
                 </div>
                         <% }) %>
               </div>

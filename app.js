@@ -231,6 +231,16 @@ app.post("/chat", function(req, res){
     }
 })
 
+app.get("/delete", function(req, res){
+    if(req.user.username === "admin"){
+        res.redirect("/admin")
+    } else {
+        res.redirect("/user")
+    }
+    
+})
+
+
 app.post("/delete", function(req, res){
     if(req.isAuthenticated()){
         if(req.user.username === "admin"){
